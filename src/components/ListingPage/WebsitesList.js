@@ -1,5 +1,6 @@
 import React from "react";
 import Chip from "@material-ui/core/Chip";
+import { Link } from "react-router-dom";
 
 function WebsiteList() {
     return (
@@ -22,7 +23,9 @@ function WebsiteList() {
                             </div>
                         </div>
                         <div className="book-title">
+                        <Link to='/book-detail'>
                             <h5><a href="">Mixed Lemon Breeds</a></h5>
+                            </Link>
                         </div>
                         <div className="postedon">
                             <p className="posted-date"><strong>Posted On: </strong>May 20, 2022</p>
@@ -47,7 +50,9 @@ function WebsiteList() {
                             </div>
                         </div>
                         <div className="book-title">
+                        <Link to='/book-detail'>
                             <h5><a href="">Mixed Lemon Breeds</a></h5>
+                            </Link>
                         </div>
                         <div className="postedon">
                             <p className="posted-date"><strong>Posted On: </strong>May 20, 2022</p>
@@ -72,7 +77,9 @@ function WebsiteList() {
                             </div>
                         </div>
                         <div className="book-title">
+                        <Link to='/book-detail'>
                             <h5><a href="">Mixed Lemon Breeds</a></h5>
+                            </Link>
                         </div>
                         <div className="postedon">
                             <p className="posted-date"><strong>Posted On: </strong>May 20, 2022</p>
@@ -81,7 +88,9 @@ function WebsiteList() {
                             <p className="some-textofbook">orem simply dummy text printing and typesetting industry. Lorem Ipsum has beensince the 1500s</p>
                         </div>
                         <div className=" readmore-book">
+                        <Link to='/book-detail'>
                             <button className="readmore-btn">Read more</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+import { Link } from 'react-router-dom'
 class NewspaperSlider extends Component {
   render() {
     const settings = {
@@ -35,9 +35,11 @@ class NewspaperSlider extends Component {
         
         <div className='slider-div'><img src='http://images.studentdesk.in/img/icons/large/defaultbook.png' /></div>
         </Slider>
+        <Link to = "/newspapers-list">
         <div className='row viewmore-btn'>
         <button className=" viewmore-btn btn btn-primary my-2 my-sm-0" type="submit">View all</button>
         </div>
+        </Link>
       </div>
     );
   }

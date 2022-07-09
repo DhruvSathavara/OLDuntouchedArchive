@@ -1,9 +1,9 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
-
+import { Link } from 'react-router-dom'
 function Header() {
-const {authenticate,isAuthenticated} = useMoralis()
-const login = async () => {
+  const { authenticate, isAuthenticated } = useMoralis()
+  const login = async () => {
     if (!isAuthenticated) {
       await authenticate({
         provider: "web3Auth",
@@ -17,18 +17,20 @@ const login = async () => {
         });
     }
   };
-    return (
-        <nav className="navbar navbar-light bg-light justify-content-between">
-            <img src="" alt="logo.img"></img>
+  return (
+    <nav className="navbar navbar-light bg-light justify-content-between">
+      <Link to="/">
+        <img src="" alt="logo.img"></img>
+      </Link>
+      <Link to="upload-form">
+        <button className="btn btn-primary" style={{ marginLeft: '76vw' }}>Upload form</button>
+      </Link>
 
-                <button onClick={(e)=>login(e)} className="btn btn-primary my-2 my-sm-0" type="submit">Connect</button>
-                
-        </nav>
-    )
+      <button onClick={(e) => login(e)} className="btn btn-primary my-2 my-sm-0" type="submit">Connect</button>
+
+
+    </nav>
+  )
 }
 
 export default Header;
-
-
-
-

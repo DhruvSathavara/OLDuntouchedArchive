@@ -1,6 +1,67 @@
 import React from "react";
+import { useState } from "react";
+import { useMoralis } from "react-moralis";
+import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js'
 
 function BookDetail() {
+    const [review, setReview] = useState('');
+
+    const reviewEvent = (e) => {
+        setReview(e.target.value)
+    }
+    console.log(review);
+    function onAddClick(e) {
+        e.preventDefault();
+        console.log('review ok');
+
+        addReview();
+        storeFiles();
+    }
+
+    const { Moralis } = useMoralis();
+    const API_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEIzOEQzNkJhOTIwOWU0NDhCMzZEOGYwNzQ2MzE4ZGFiNmUyNzUwQmYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTczNDI2NzMzMDcsIm5hbWUiOiJVbnRvdWNoZWQgYXJjaGlldmUifQ.t3zZU9B7HVdsJTKXajBRuNDsE6piX0tjWQqtSPP23h4";
+    const client = new Web3Storage({ token: API_Token })
+
+    const untouchedReview = Moralis.Object.extend("UntouchedArchieve");
+    const reviewUntouched = new untouchedReview();
+
+    function addReview() {
+        const blob = new Blob(
+            [
+                JSON.stringify(review)
+            ],
+            { type: "application/json" }
+        );
+        const files = [
+            new File([blob], "data.json"),
+        ];
+        console.log(files);
+        
+        return files;
+      
+    }
+    function addli(){
+        var ul = document.getElementById("ul");
+        var li = document.createElement("li");
+        li.appendChild(document.createTextNode(review));
+        ul.appendChild(li);
+    }
+
+    async function storeFiles() {
+        let files = addReview()
+        console.log(files);
+        addli();
+        const cid = await client.put(files);
+        reviewUntouched.set("CID", cid);
+        reviewUntouched.save();
+        console.log("review added successfully", cid);
+        setReview('');
+        return cid;
+       
+    }
+
+
+
     return (
         <div className="container-fluid row">
             <div className="col-12 book-details-tag">
@@ -22,11 +83,11 @@ function BookDetail() {
                             <button className="btn btn-danger my-2 download-btn my-sm-0 offset-3" type="submit">Download</button>
                         </div>
                     </div>
-
+    
                     <div className="under-line col-12"></div>
-
+    
                     <div className=" col-12 contribute-title">
-                                    <h5>Contribute token or coin to the creator</h5>
+                        <h5>Contribute token or coin to the creator</h5>
                     </div>
                     <div className=" col-12 contributer-class">
                         <button className=" offset-5 button-contribute">Contribute</button>
@@ -38,17 +99,24 @@ function BookDetail() {
                         </div>
                         <div className="row review-section">
                             <div className=" review-box col-4">
-                            <textarea placeholder="Add a review" name="field5"className="col-12 review-field"></textarea>
+                                <textarea value={review} onChange={reviewEvent} placeholder="Add a review" name="field5" className="col-12 review-field"></textarea>
                             </div>
                             <div className="col-2">
-                                <button className="btn btn-primary add-review-btn">Add</button>
+                                <button onClick={onAddClick} className="btn btn-primary add-review-btn">Add</button>
                             </div>
                         </div>
-
+                        <div className="col-4 review-list">
+                            {/* <h4>Add Your Review</h4> */}
+                            <ul id="ul"></ul>
+                        </div>
+    
                     </div>
                 </div>
             </div>
         </div>
     )
+
 }
+
+
 export default BookDetail

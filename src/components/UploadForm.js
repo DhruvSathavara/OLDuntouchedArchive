@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
-import { APIcontext } from "../Web3Storage/Web3Storage";
+import Header from "./Header";
+import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js'
+import { useMoralis } from "react-moralis";
+
 function UploadForm() {
 
-    const client=useContext(APIcontext);
-    console.log(client);
+    
     const [name, setName] = useState('');
     const [subject, setSubject] = useState('');
     const [category, setCategory] = useState(null);
@@ -48,7 +50,7 @@ function UploadForm() {
     console.log(checkbox);
 
     let Item = {
-        nam: name,
+        name: name,
         subject: subject,
         category: category,
         file: file,
@@ -57,42 +59,59 @@ function UploadForm() {
         checkbox: checkbox
     }
     console.log(Item);
-
+    
     function onFormSubmit(e) {
         e.preventDefault()
         console.log(Item,'form submit');
-
+      
         setName('');
         setSubject('');
-        setCategory(null);
+        setCategory('');
         setFile(null);
-        setWebsite('');
+        setWebsite('')
         setDescription('');
-        setCheckbox();
+        setCheckbox(null);
+        addData();
+        storeFiles()
     }
-    // function getAccessToken (){
-    //     return process.env.WEB3STORAGE_TOKEN
-    // }
-    // function makeStorageClient () {
-    //     return new Web3Storage({ token: getAccessToken() })
-    // }
-    // function getFiles () {
-    //     const fileInput = document.querySelector('input[type="file"]')
-    //     return fileInput.files
-    // }
-    // async function storeFiles (files) {
-    //     const client = makeStorageClient()
-    //     const cid = await client.put(files)
-    //     console.log('stored files with cid:', cid)
-    //     return cid
-    // }
+   
+// Web3Storage
+const { Moralis } = useMoralis();
+const API_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEIzOEQzNkJhOTIwOWU0NDhCMzZEOGYwNzQ2MzE4ZGFiNmUyNzUwQmYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTczNDI2NzMzMDcsIm5hbWUiOiJVbnRvdWNoZWQgYXJjaGlldmUifQ.t3zZU9B7HVdsJTKXajBRuNDsE6piX0tjWQqtSPP23h4";
+const client = new Web3Storage({ token: API_Token})
+const untouchedA = Moralis.Object.extend("UntouchedArchieve");
+const UntoucheDdata  = new untouchedA();
 
 
+function addData(){
+    const blob = new Blob(
+        [
+            JSON.stringify(Item),
+        ],
+        { type: "application/json"}
+    );
+  const files = [
+      new File([blob], "data.json"),
+  ];
+  console.log(files);
+  return files;
+
+}
+async function storeFiles(){
+    let files = addData()
+    const cid = await client.put(files);
+    UntoucheDdata.set("CID", cid);
+    UntoucheDdata.save();
+    console.log("stored files with cid", cid);
+    return cid;
+}
+
+  
     return (
         <div style={{ backgroundColor: "aliceblue" }} className="col">
             <div className="form-style-2 offset-4 row-8">
                 <div className="form-style-2-heading">Upload any files from here</div>
-                <form action="" method="" onSubmit={onFormSubmit} >
+                <form action="" method="" onSubmit={onFormSubmit}>
                     <label for="field1"><span>Name <span className="required">*</span></span><input value={name} onChange={nameEvent} placeholder="Your name" type="text" class="input-field" name="field1" /></label>
 
                     <label for="field2"><span>Subject <span className="required">*</span></span><input value={subject} placeholder="Subject" onChange={subjectEvent} type="text" class="input-field" name="field2" /></label>
@@ -122,5 +141,6 @@ function UploadForm() {
 
     )
 }
+
 
 export default UploadForm;

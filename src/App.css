@@ -299,7 +299,7 @@ label .terms-checkbox{
     text-transform: uppercase;
     border-radius: 25px;
     vertical-align: middle;
-    background-color: #FF8500;
+    background-color:  #FF8500;
   }
   /* .readmore-btn button:hover{
     background-color: #282c34;
@@ -307,6 +307,8 @@ label .terms-checkbox{
 .container-fluid .card{
   border-radius: 8px 8px 8px 8px;
   margin-top: 20px;
+  height: 98%;
+  border: 1px solid black;
 }
 a{
   text-decoration : none !important;
@@ -448,7 +450,10 @@ div .review-section{
 }  
 
  #footer {
-  background-color: cyan;
+  background-color: 
+  rgb(242, 242, 242);
+  
+  ;
   align-items: left;
   margin-bottom: 0px;
   display: flex;
