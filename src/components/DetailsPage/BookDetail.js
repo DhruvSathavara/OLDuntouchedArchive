@@ -1,71 +1,8 @@
 import React from "react";
-// import { useState } from "react";
-// import { ModalBody } from "react-bootstrap";
-// import { useMoralis } from "react-moralis";
-// import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js'
 import ModalContribute from "../Contribute/Contribute";
 
 
 function BookDetail() {
-    // const [review, setReview] = useState('');
-
-    // const reviewEvent = (e) => {
-    //     setReview(e.target.value)
-    // }
-    // console.log(review);
-    // function onAddClick(e) {
-    //     // e.preventDefault();
-    //     console.log('review ok');
-
-    //     addReview();
-    //     storeFiles();
-    // }
-
-    // const { Moralis } = useMoralis();
-    // const API_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEIzOEQzNkJhOTIwOWU0NDhCMzZEOGYwNzQ2MzE4ZGFiNmUyNzUwQmYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTczNDI2NzMzMDcsIm5hbWUiOiJVbnRvdWNoZWQgYXJjaGlldmUifQ.t3zZU9B7HVdsJTKXajBRuNDsE6piX0tjWQqtSPP23h4";
-    // const client = new Web3Storage({ token: API_Token })
-
-    // const untouchedReview = Moralis.Object.extend("UntouchedArchieve");
-    // const reviewUntouched = new untouchedReview();
-
-    // function addReview() {
-    //     const blob = new Blob(
-    //         [
-    //             JSON.stringify(review)
-    //         ],
-    //         { type: "application/json" }
-    //     );
-    //     const files = [
-    //         new File([blob], "data.json"),
-    //     ];
-    //     console.log(files);
-        
-    //     return files;
-      
-    // }
-    //  function addli(){
-    //     var ul = document.getElementById("ul");
-    //     var liUnderLine = document.createElement("div")
-    //     liUnderLine.style.borderBottom= "2px solid #c29c72"
-    //     var li = document.createElement("li");
-    //     li.appendChild(document.createTextNode(review));
-    //     // ul.appendChild(li);
-    //     // li.appendChild(liUnderLine)
-    // }
-
-    // async function storeFiles() {
-    //     let files = addReview()
-    //     console.log(files);
-    //     // addli();
-    //     const cid = await client.put(files);
-    //     reviewUntouched.set("CID", cid);
-    //     reviewUntouched.save();
-    //     console.log("review added successfully", cid);
-    //     setReview('');
-    //     return cid;
-       
-    // }
-
 
 
     return (

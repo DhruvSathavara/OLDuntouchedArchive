@@ -34,7 +34,9 @@ function DocumentList() {
                             <p className="some-textofbook">orem simply dummy text printing and typesetting industry. Lorem Ipsum has beensince the 1500s</p>
                         </div>
                         <div className=" readmore-book">
+                        <Link to='/doc-detail'>
                             <button className="readmore-btn">Read more</button>
+                           </Link>
                         </div>
                     </div>
 
@@ -61,7 +63,9 @@ function DocumentList() {
                             <p className="some-textofbook">orem simply dummy text printing and typesetting industry. Lorem Ipsum has beensince the 1500s</p>
                         </div>
                         <div className=" readmore-book">
+                        <Link to='/doc-detail'>
                             <button className="readmore-btn">Read more</button>
+                           </Link>
                         </div>
                     </div>
 
@@ -87,7 +91,7 @@ function DocumentList() {
                             <p className="some-textofbook">orem simply dummy text printing and typesetting industry. Lorem Ipsum has beensince the 1500s</p>
                         </div>
                         <div className=" readmore-book">
-                        <Link to='/book-detail'>
+                        <Link to='/doc-detail'>
                             <button className="readmore-btn">Read more</button>
                             </Link>
                         </div>

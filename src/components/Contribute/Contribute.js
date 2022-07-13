@@ -77,9 +77,11 @@ function addReview() {
 
 async function TransferEth(){
   const web3 = await Moralis.enableWeb3();
-  Moralis.transfer({type:"native",receiver:"0x04fC6d54C54b8CbAbaAE716f4AD507d22D87C24e",
-  amount:Moralis.Units.ETH("0.00000001")
+await Moralis.transfer({type:"native",receiver:"0xE9B4b5985fa998516A58D9449Fe53048f0Dd33aB",
+  amount:Moralis.Units.ETH("0.00001")
 })
+console.log('transferd success');
+
 }
 
 async function storeFiles() {

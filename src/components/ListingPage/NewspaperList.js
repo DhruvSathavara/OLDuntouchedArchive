@@ -32,7 +32,9 @@ function NewspaperList() {
                             <p className="some-textofbook">orem simply dummy text printing and typesetting industry. Lorem Ipsum has beensince the 1500s</p>
                         </div>
                         <div className=" readmore-book">
+                        <Link to='/news-detail'>
                             <button className="readmore-btn">Read more</button>
+                           </Link>
                         </div>
                     </div>
 
@@ -57,7 +59,9 @@ function NewspaperList() {
                             <p className="some-textofbook">orem simply dummy text printing and typesetting industry. Lorem Ipsum has beensince the 1500s</p>
                         </div>
                         <div className=" readmore-book">
+                        <Link to='/news-detail'>
                             <button className="readmore-btn">Read more</button>
+                           </Link>
                         </div>
                     </div>
 
@@ -82,7 +86,7 @@ function NewspaperList() {
                             <p className="some-textofbook">orem simply dummy text printing and typesetting industry. Lorem Ipsum has beensince the 1500s</p>
                         </div>
                         <div className=" readmore-book">
-                        <Link to='/book-detail'>
+                        <Link to='/news-detail'>
                             <button className="readmore-btn">Read more</button>
                             </Link>
                         </div>
