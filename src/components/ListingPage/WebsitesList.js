@@ -23,9 +23,8 @@ function WebsiteList() {
                             </div>
                         </div>
                         <div className="book-title">
-                        <Link to='/book-detail'>
                             <h5><a href="">Mixed Lemon Breeds</a></h5>
-                            </Link>
+                 
                         </div>
                         <div className="postedon">
                             <p className="posted-date"><strong>Posted On: </strong>May 20, 2022</p>
@@ -50,9 +49,8 @@ function WebsiteList() {
                             </div>
                         </div>
                         <div className="book-title">
-                        <Link to='/book-detail'>
                             <h5><a href="">Mixed Lemon Breeds</a></h5>
-                            </Link>
+                    
                         </div>
                         <div className="postedon">
                             <p className="posted-date"><strong>Posted On: </strong>May 20, 2022</p>
@@ -77,9 +75,8 @@ function WebsiteList() {
                             </div>
                         </div>
                         <div className="book-title">
-                        <Link to='/book-detail'>
                             <h5><a href="">Mixed Lemon Breeds</a></h5>
-                            </Link>
+                       
                         </div>
                         <div className="postedon">
                             <p className="posted-date"><strong>Posted On: </strong>May 20, 2022</p>

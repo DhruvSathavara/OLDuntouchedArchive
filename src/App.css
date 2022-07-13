@@ -117,8 +117,8 @@ div .cardsfeture a{
   padding: 0;
   margin: 0;
   /* margin-left: 17%; */
-  width: 25vw;
-  margin-top: 45px;
+  /* width: 25vw !important; */
+  margin-top: 45px !important;
   /* width: "60%"; */
   /* height: "220px"; */
   /* background-color: rgba(255, 255, 255, 0.8); */
@@ -162,9 +162,13 @@ div .cardsfeture a{
   padding: 7px 59px 0px 3px;
 }
 .container-fluid .viewmore-btn{
-  margin-left: 82%;
+  margin-left: 628px;
+  width: 78px !important;
   margin-top: -84px;
   z-index: 5;
+}
+.slick-list{
+  margin: 0px 35px 0px 0px !important;
 }
 
 /*  ---------  UPLOAD FORM  ----------------- */
@@ -280,6 +284,9 @@ label .terms-checkbox{
   .clickable-chips{
     margin-bottom: 12px;
   }
+  .clickable-chips .offset-1{
+    width: 33%;
+  }
   .book-title{
     margin-bottom: 12px;
   }
@@ -352,13 +359,14 @@ a{
     margin-left: 130px;
 }
 .view-btn-row{
-  margin-top: 35px;
+  margin : 29px 149px 33px 50px !important ;  
 }
+
 .download-btn-row{
-  margin-top: 20px;
+  margin : 29px 130px 33px 70px !important ;  
 }
 .under-line{
-  margin-top: 20px;
+  margin-top: 50px !important;
 	border-bottom: 3px solid #c29c72;
 /* margin-left: 34rem; */
 /* width: 34rem; */
@@ -438,6 +446,18 @@ div .review-section{
   margin-bottom: 20px;
 }
 
+/*------------ REVIEW PART -----------------------*/
+
+.review-list{
+  text-align: left;
+  /* max-width: 500px;
+  margin-left: 70PX; */
+}
+.review-list li{
+  max-width: 500px;
+  word-spacing: 4px;
+  list-style: circle;
+}
 
 /*---------------------FOOTER-------------------------- */
 
@@ -465,4 +485,100 @@ div .review-section{
   margin-top: 11%;
   word-spacing: 3px;
   letter-spacing: 3px;
+}
+
+/*----------------------- CONTRIBUTE MODAL---------------------- */
+
+.ContributeModal {
+  width: 90%;
+  padding: 50px;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.modal {
+  position: fixed;
+  z-index: 20;
+  background: #fff;
+  width: 500px;
+
+  /* Center the modal */
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.modal__header {
+  background: orangered;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal__main {
+  padding: 20px;
+}
+
+.modal-close-button {
+  border: none;
+  background: transparent;
+  padding: 10px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 36px;
+}
+
+.modal-close-button:hover {
+  color: yellow;
+}
+
+.modal-open-button {
+  background: green;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+
+}
+
+.modal-open-button {
+  background: orange;
+}
+
+/*------------------------ MODAL CONTRIBUTE------------------- */
+.dialogUnderline{
+	border-bottom: 2px solid black;
+}
+.ETH-amount{
+margin-top: 22px;
+}
+.message-review{margin-top: 22px;
+}
+.gift-btn{
+  font-size: x-large !important;
+  width: 111px !important;
+  margin-top: 38px !important;
+}
+
+
+/* -----------------CARD UNDER MDAL CONTRIBUTE-------------- */
+.card-title{
+  line-height: 0 !important;
+  margin: 3px 321px -12px 5px !important;
+}
+.gift-icon{
+  font-size: xx-large;
+  margin-left: 21rem;
+  margin-right: 20px;
+}
+.gift-under-line{
+  border-bottom: 1px solid black;
 }
