@@ -22,13 +22,13 @@ function App() {
 <Routes>
 <Route path="/" element= {<Home />}/>
   <Route path ="/upload-form" element = {<UploadForm />}/>
-  <Route path ="/book-list" element = { <BookList />} />
+  
   <Route path="/book-detail" element = { <BookDetail /> } />
 
   <Route path="/doc-detail" element = { <DocumentDetail /> } />
   <Route path="/news-detail" element = { <NewsDetail /> } />
   <Route path="/web-detail" element = { <WebsiteDetail /> } />
-
+  <Route path ="/book-list" element = { <BookList />} />
 <Route path="/documents-list" element = {<DocumentList />} />
 <Route path = "/newspapers-list" element = { <NewspaperList /> } />
 <Route path = "/websites-list" element = { <WebsiteList /> } />

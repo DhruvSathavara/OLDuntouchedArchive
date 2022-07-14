@@ -95,11 +95,13 @@
 
 }
 .icon-name{
-  font-weight: 400;
-  text-shadow: -1px 0 #12e4c2, 0 1px #964b4b, 1px 0 black, 0 -1px #b1afdb;
+  font-weight: 300;
+  /* text-shadow: -1px 0 #12e4c2, 0 1px #964b4b, 1px 0 black, 0 -1px #b1afdb; */
   text-align: center;
   letter-spacing: 5px;
+  font-size: 25px;
   cursor: pointer;
+  font-family: sans-serif;
 }
 
 .grid-container {
@@ -177,14 +179,16 @@ div .cardsfeture a{
 	max-width: 600px;
   padding: 40px 0px 18px 0px;
   font: 16px Arial, Helvetica, sans-serif;
-  margin-left: 30%;
+  margin-left: 28% !important;
 }
 .form-style-2-heading{
 	font-weight: bold;
 	font-style: italic;
 	border-bottom: 3px solid #FF8500;
 	margin-bottom: 27px;
-	font-size: 18px;
+	font-size: 20px;
+  margin-right: 22px;
+  width: 85%;
 	padding-bottom: 17px;
 }
 .form-style-2 label{
@@ -276,10 +280,11 @@ label .terms-checkbox{
   /*---------------------  BOOK LISTING -------------------------- */
 
   .book-images{
-    width: 305px;
+    width: 310px !important;
     height: 230px;
     border-radius: 8px 8px 0px 0px;
     margin-bottom: 12px;
+    margin-left: -3px !important;
   }
   .clickable-chips{
     margin-bottom: 12px;
@@ -300,13 +305,17 @@ label .terms-checkbox{
     border: 0;
     color: white;
     font-size: 14px;
-    font-weight: 600;
     transition: 0.3s;
     padding: 12px 30px;
     text-transform: uppercase;
     border-radius: 25px;
     vertical-align: middle;
     background-color:  #FF8500;
+    font-weight: bolder;
+    border-style: solid;
+    border-color: transparent;
+    font-family: inherit;
+    white-space: nowrap;
   }
   /* .readmore-btn button:hover{
     background-color: #282c34;
@@ -314,7 +323,8 @@ label .terms-checkbox{
 .container-fluid .card{
   border-radius: 8px 8px 8px 8px;
   margin-top: 20px;
-  height: 98%;
+  height: 44%;
+  width: 312px;
   border: 1px solid black;
 }
 a{
@@ -346,9 +356,13 @@ a{
     line-height: 28px;
     word-spacing: 4px;
    }
+   .book-details-tag{
+    margin-top: 7px;
+   }
    .viewonline-btn{
     padding: 11px;
     width: 200px;
+    line-height: 28px;
     margin-left: 130px;
     margin-top: 12px;
    }
@@ -358,10 +372,9 @@ a{
     width: 200px;
     margin-left: 130px;
 }
-.view-btn-row{
-  margin : 29px 149px 33px 50px !important ;  
+.view-btn-row {
+  margin:29px 148px 33px 55px !important;
 }
-
 .download-btn-row{
   margin : 29px 130px 33px 70px !important ;  
 }
@@ -557,6 +570,18 @@ div .review-section{
 .dialogUnderline{
 	border-bottom: 2px solid black;
 }
+.contribute-title{
+  color: black;
+  font-size: 36px;
+  font-weight: 400;
+  /* text-shadow: black -1px 0px, black 0px 1px, black 1px 0px, black 0px -1px; */
+  text-align: center;
+  margin-top: 23px;
+  word-spacing: 14px;
+  letter-spacing: 4px;
+  font-style: oblique;
+}
+
 .ETH-amount{
 margin-top: 22px;
 }
@@ -570,6 +595,7 @@ margin-top: 22px;
 
 
 /* -----------------CARD UNDER MDAL CONTRIBUTE-------------- */
+
 .card-title{
   line-height: 0 !important;
   margin: 3px 321px -12px 5px !important;

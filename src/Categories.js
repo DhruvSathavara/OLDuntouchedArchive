@@ -5,6 +5,8 @@ import { BsBookHalf } from "react-icons/bs"
 import { FcDocument } from "react-icons/all"
 import { GiNewspaper } from "react-icons/all"
 import { CgWebsite } from "react-icons/all"
+import { Link } from "react-router-dom";
+
 
 
 export default function Categories() {
@@ -19,6 +21,7 @@ export default function Categories() {
                     <div className="grid-item  col-4" >
 
                         <div className='cardsfeture' >
+                        <Link to='/book-list'>
                             <div className="buttons" >
                                 <a className="" href=""><BsBookHalf />
 
@@ -26,6 +29,7 @@ export default function Categories() {
                                 <p className='icon-name'>  {"    "} Books</p>
 
                             </div>
+                        </Link>
 
                         </div>
                     </div>
@@ -33,6 +37,7 @@ export default function Categories() {
                     <div className="grid-item col-4" >
 
                         <div className='cardsfeture' >
+                            <Link to='/documents-list'>
                             <div className="buttons" >
                                 <a className="" href=""><FcDocument />
 
@@ -40,7 +45,7 @@ export default function Categories() {
                                 <p className='icon-name'>Documents</p>
 
                             </div>
-
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -52,6 +57,7 @@ export default function Categories() {
                 <div className="grid-item col-4" >
 
                     <div className='cardsfeture' >
+                    <Link to='/newspapers-list'>
                         <div className="buttons" >
                             <a className="" href=""><GiNewspaper />
 
@@ -59,18 +65,20 @@ export default function Categories() {
                             <p className='icon-name'>Newspapers</p>
 
                         </div>
-
+                    </Link>
                     </div>
                 </div>
 
                 <div className="grid-item col-4" >
 
                     <div className='cardsfeture' >
+                    <Link to='/websites-list'>
                         <div className="buttons" >
                             <a className="" href=""><CgWebsite/>
                             </a>
                             <p className='icon-name'>Websites</p>
                         </div>
+                        </Link>
                     </div>
                 </div>
                 </div>

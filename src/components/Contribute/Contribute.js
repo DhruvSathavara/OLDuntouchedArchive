@@ -30,12 +30,14 @@ export default function ModalContribute() {
   const [ETHbalance, setETHbalance] = useState('');
   const [review, setReview] = useState('');
   const [userAddress, setUserAddress] = useState('');
+  const [receiverAddress, setReceiverAddress] = useState('');
 
   let user = {
     name:userAddress,
     gift:gift,
     review:review,
-    ETHbalance:ETHbalance
+    ETHbalance:ETHbalance,
+    receiverAddress:receiverAddress
   }
   console.log(user,'user obj');
 
@@ -44,6 +46,9 @@ export default function ModalContribute() {
   }
   const handleReview = (e) => {
     setReview(e.target.value)
+  }
+  function handleAddress(e){
+    setReceiverAddress(e.target.value)
   }
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -77,10 +82,11 @@ function addReview() {
 
 async function TransferEth(){
   const web3 = await Moralis.enableWeb3();
-await Moralis.transfer({type:"native",receiver:"0xE9B4b5985fa998516A58D9449Fe53048f0Dd33aB",
-  amount:Moralis.Units.ETH("0.00001")
+await Moralis.transfer({type:"native",receiver:receiverAddress,
+  amount:Moralis.Units.ETH(gift)
 })
 console.log('transferd success');
+
 
 }
 
@@ -98,6 +104,7 @@ async function storeFiles() {
 }
   return (
     <div>
+      <h3 className='contribute-title'>Contribute and help the Creator</h3>
       <Button variant="contained" className='gift-btn' onClick={handleClickOpen}>
         Gift
       </Button>
@@ -148,6 +155,16 @@ async function storeFiles() {
           </h3>
           <TextField
             autoFocus
+            value={receiverAddress}
+            margin="dense"
+            onChange={handleAddress}
+            className=""
+            label="Provide address"
+            type="text"
+            fullWidth
+          />
+          <TextField
+            autoFocus
             value={gift}
             margin="dense"
             onChange={handleGift}
@@ -156,6 +173,7 @@ async function storeFiles() {
             type="number"
             fullWidth
           />
+
           <TextField
             fullWidth
             value={review}

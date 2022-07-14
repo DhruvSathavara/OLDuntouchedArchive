@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MoralisProvider } from 'react-moralis';
 import { BrowserRouter } from 'react-router-dom';
+import { BookContextProvider } from './Context/BookContext';
 // ReactDOM.render(
  
 //     {/* <React.StrictMode> */}
@@ -19,14 +20,18 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 const serverUrl = "https://4l12eh1rxwvl.usemoralis.com:2053/server";
 const appId = "8ucaGXdBwPrVBET3LddW0B5X5d8PIYJtP87aGHCq";
 root.render(
+  
   <MoralisProvider appId= {appId} serverUrl={serverUrl}>
+  <BookContextProvider>
   <BrowserRouter>
   <App />
 
     </BrowserRouter>
-
+    </BookContextProvider>
     </MoralisProvider>,
+   
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
