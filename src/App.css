@@ -261,12 +261,13 @@ label .terms-checkbox{
   margin: 0px 18px 19px 68px;
 }
 .file-input{
-  /* margin-left: 20px; */
+  margin-left: 20px;
   /* border: 1px solid #C2C2C2; */
-  width: 48%;
+  line-height: 27px;
   outline: none;
-  color: aliceblue;
+  color: #F0F8FF;
 }
+
 .add-url{
   /* margin-right: 5rem; */
   border: 1px solid #C2C2C2;
