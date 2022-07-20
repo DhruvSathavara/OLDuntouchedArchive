@@ -23,11 +23,11 @@ function App() {
 <Route path="/" element= {<Home />}/>
   <Route path ="/upload-form" element = {<UploadForm />}/>
   
-  <Route path="/book-detail" element = { <BookDetail /> } />
+  <Route path="/book-detail/:id" element = { <BookDetail /> } />
 
-  <Route path="/doc-detail" element = { <DocumentDetail /> } />
-  <Route path="/news-detail" element = { <NewsDetail /> } />
-  <Route path="/web-detail" element = { <WebsiteDetail /> } />
+  <Route path="/doc-detail/:id" element = { <DocumentDetail /> } />
+  <Route path="/news-detail/:id" element = { <NewsDetail /> } />
+  <Route path="/web-detail/:id" element = { <WebsiteDetail /> } />
   <Route path ="/book-list" element = { <BookList />} />
 <Route path="/documents-list" element = {<DocumentList />} />
 <Route path = "/newspapers-list" element = { <NewspaperList /> } />

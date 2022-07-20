@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ModalContribute from "../Contribute/Contribute";
-
+import { BookContext } from '../../Context/BookContext';
+import { useParams } from "react-router-dom";
+import { useMoralis } from "react-moralis";
 
 function WebsiteDetail() {
+    const params = useParams();
+    const { isAuthenticated, isInitialized } = useMoralis()
 
+    const bookContext = React.useContext(BookContext);
+    const { getBookDetails, bookDetails } = bookContext;
+
+    useEffect(() => {
+        getBookDetails(params)
+    }, [isAuthenticated, isInitialized])
+
+
+   console.log(bookDetails.walletAddress); 
 
     return (
         <div className="container-fluid row">
             <div className="col-12 book-details-tag">
-                <h3>Book Details</h3>
+                <h3>{bookDetails.name}</h3>
             </div>
             <div className="col-12">
                 <div className="row">
@@ -16,7 +29,7 @@ function WebsiteDetail() {
                         <img src="https://primehostingindia.com/templatemonster/react/bookbay/assets/img/blog/4.jpg"></img>
                     </div>
                     <div className="col-4">
-                        <p className="particular-book-text" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.    </p>
+                        <p className="particular-book-text" >{bookDetails.description}</p>
                     </div>
                     <div className="col-4 view-and-download-btn">
                         <div className="row view-btn-row">
@@ -29,7 +42,7 @@ function WebsiteDetail() {
     
                      <div className="under-line col-12"></div>
                     <div className="col-12">
-                        <ModalContribute></ModalContribute>
+                    <ModalContribute walletAddress={bookDetails.walletAddress}></ModalContribute>
                     </div>
                 </div>
             </div>

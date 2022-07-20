@@ -4,51 +4,106 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';  
-import {Container ,Card,Row, Col} from 'react-bootstrap';
-import { ModalBody } from "react-bootstrap";
-import { useMoralis } from "react-moralis";
-import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Card, Row, Col } from 'react-bootstrap';
+import { useMoralis, useMoralisQuery } from "react-moralis";
+import { Blob, Web3Storage } from 'web3.storage/dist/bundle.esm.min.js'
 import { FaGift } from 'react-icons/fa';
 import { useWeb3Transfer } from 'react-moralis';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 
-export default function ModalContribute() {
+export default function ModalContribute(props) {
+  console.log(props.walletAddress);
+  const { Moralis, isAuthenticated, isInitialized } = useMoralis();
 
+  const params = useParams();
+  console.log(params.id);
 
-  const { Moralis } = useMoralis();
+  React.useEffect(() => {
+    getReviews(params)
+  }, [isAuthenticated, isInitialized, loading, isUpdated])
+
   const API_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEIzOEQzNkJhOTIwOWU0NDhCMzZEOGYwNzQ2MzE4ZGFiNmUyNzUwQmYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTczNDI2NzMzMDcsIm5hbWUiOiJVbnRvdWNoZWQgYXJjaGlldmUifQ.t3zZU9B7HVdsJTKXajBRuNDsE6piX0tjWQqtSPP23h4";
   const client = new Web3Storage({ token: API_Token })
 
-  const untouchedReview = Moralis.Object.extend("UntouchedArchieve");
-  const reviewUntouched = new untouchedReview();
+  const reviews = Moralis.Object.extend("Reviews");
+  const reviewsData = new reviews();
 
+  const [allReviews, setAllReviews] = useState([]);
   const [gift, setGift] = useState('');
-  const [ETHbalance, setETHbalance] = useState('');
   const [review, setReview] = useState('');
-  const [userAddress, setUserAddress] = useState('');
   const [receiverAddress, setReceiverAddress] = useState('');
+  const[loading, setLoading] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
 
-  let user = {
-    name:userAddress,
-    gift:gift,
-    review:review,
-    ETHbalance:ETHbalance,
-    receiverAddress:receiverAddress
+  let reviewObj = {
+    gift: gift,
+    review: review,
+    receiverAddress: props.walletAddress,
   }
-  console.log(user,'user obj');
+
+  // STORING REVIEWS
+  function addReview(reviewObj) {
+    const blob = new Blob(
+      [
+        JSON.stringify(reviewObj)
+      ],
+      { type: "application/json" }
+    );
+    const files = [
+      new File([blob], "data.json")
+    ];
+    console.log(files);
+    return files;
+  }
+
+  async function storeReview(reviewObj) {
+    let files = addReview(reviewObj);
+    const cid = await client.put(files);
+   await
+    reviewsData.set("CID", cid);
+    await reviewsData.set("ParentID", params.id)
+    await reviewsData.save();
+    setLoading(false);
+    setIsUpdated(!isUpdated)
+    console.log("stored Reviews with cid", cid);
+   handleClose();
+  }
+  // GETTING REVIEWS 
+
+  async function getReviews(params) {
+    if (isAuthenticated) {
+      const reviews = Moralis.Object.extend("Reviews");
+      const query = new Moralis.Query(reviews);
+      query.equalTo("ParentID", (params.id).toString());
+      const reviewsAray = await query.find({ useMasterKey: true});
+      let array = [];
+      if (reviewsAray.length > 0) {
+       reviewsAray.map((reviewD) => {
+          axios.get(`https://${reviewD.attributes.CID}.ipfs.infura-ipfs.io/data.json`)
+          .then(function (response) {
+            array.push(response.data)
+           
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+       })
+       setAllReviews(array)
+      }
+    }
+  }
+  console.log(allReviews, 'receve reviews');
 
   const handleGift = (e) => {
     setGift(e.target.value)
   }
   const handleReview = (e) => {
     setReview(e.target.value)
-  }
-  function handleAddress(e){
-    setReceiverAddress(e.target.value)
   }
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -58,50 +113,31 @@ export default function ModalContribute() {
     setOpen(false);
   };
 
-  function onAddClick(e) {
+  async function onAddClick(e) {
     e.preventDefault();
+    setLoading(true)
     console.log('review ok');
-
-    // addReview();
-    storeFiles();
-}
-
-function addReview() {
-  const blob = new Blob(
-      [
-          JSON.stringify(user)
-      ],
-      { type: "application/json" }
-  );
-  const files = [
-      new File([blob], "data.json"),
-  ];
-  console.log(files);
-  return files;
-}
-
-async function TransferEth(){
-  const web3 = await Moralis.enableWeb3();
-await Moralis.transfer({type:"native",receiver:receiverAddress,
-  amount:Moralis.Units.ETH(gift)
-})
-console.log('transferd success');
-
-
-}
-
-async function storeFiles() {
-  let files = addReview()
-  console.log(files);
-  const cid = await client.put(files);
-  reviewUntouched.set("CID", cid);
-  reviewUntouched.save();
-  TransferEth(); 
-  console.log("files with cid ==>", ` https://dweb.link/ipfs/${cid}`);
-  // setReview('');
-  return cid;
+  let transaction =  await TransferEth();
  
-}
+  if(transaction){
+    await storeReview(reviewObj);
+  }
+ 
+  }
+
+  const TransferEth = async () => {
+    console.log(receiverAddress, 'receve addes');
+    await Moralis.enableWeb3();
+    const options = {
+      type: "native",
+      amount: Moralis.Units.ETH(gift, "18"),
+      receiver: props.walletAddress,
+      contractAddress: "0x0000000000000000000000000000000000001010",
+    }
+    let result = await Moralis.transfer(options);
+    let tx = result.wait();
+    return tx;
+  }
   return (
     <div>
       <h3 className='contribute-title'>Contribute and help the Creator</h3>
@@ -110,83 +146,71 @@ async function storeFiles() {
       </Button>
 
       {/* After contributed----- */}
+      {allReviews && allReviews.map((e)=>{
+        return(
+      <div>
+        <div style={{marginBottom:"-50px"}} className="App">
+          <Container className='p-4'>
+            <Row>
+              {[
+                'Light',
+              ].map((variant, idx) => (
+                <Card
+                  bg={variant.toLowerCase()}
+                  key={idx}
+                  text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
+                  style={{ width: "49%", height: "100px" }}
+                  className=" offset-3"
+                >
+                  <Card.Body>
+                    <Card.Title> User </Card.Title>
+                    <span style={{ display: "flex" }}><FaGift className='gift-icon'></FaGift><span><h4> {e.gift }ETH</h4></span></span>
+                    <div className="gift-under-line col-12"></div>
+
+                    <Card.Text>
+                      {e.review }
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              ))}
+            </Row>
+          </Container>
+        </div>
+
       
-      <div className="App">
-        <Container className='p-4'>
-          <Row>
-            {[
-           
-              'Light',
-            ].map((variant, idx) => (
-              <Card
-                bg={variant.toLowerCase()}
-                key={idx}
-                text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-                style={{ width: "49%", height:"100px" }}
-                className=" offset-3"
-              >
-                {/* <Card.Header>Card Header</Card.Header> */}
-                <Card.Body>
-                  <Card.Title> 123456 </Card.Title>
-                  {/* <FaGift></FaGift> */}<span style={{display:"flex"}}><FaGift className='gift-icon'></FaGift><span><h4> {gift}ETH</h4></span></span>
-                  <div className="gift-under-line col-12"></div>
-
-                  <Card.Text>
-                    {/* Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs */}
-                    {review}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            ))}
-          </Row>
-        </Container>
       </div>
-     
-            
-
-
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Send Gifts</DialogTitle>
-        <div className='dialogUnderline'></div>
-        <DialogContent>
-          <h3>
-            ETH Balance :
-          </h3>
-          <TextField
-            autoFocus
-            value={receiverAddress}
-            margin="dense"
-            onChange={handleAddress}
-            className=""
-            label="Provide address"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            value={gift}
-            margin="dense"
-            onChange={handleGift}
-            className="ETH-amount"
-            label="Enter Amount"
-            type="number"
-            fullWidth
-          />
-
-          <TextField
-            fullWidth
-            value={review}
-            onChange={handleReview}
-            className='message-review'
-            label="Message / Review"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-          <Button onClick={onAddClick}> Gift ETH </Button>
-        </DialogActions>
-      </Dialog>
+        )
+      })}
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Send Gifts</DialogTitle>
+          <div className='dialogUnderline'></div>
+          <DialogContent>
+            <h3>
+              ETH Balance :
+            </h3>
+            <TextField
+              autoFocus
+              value={gift}
+              margin="dense"
+              onChange={handleGift}
+              className="ETH-amount"
+              label="Enter Amount"
+              type="number"
+              fullWidth
+            />
+            <TextField
+              fullWidth
+              value={review}
+              onChange={handleReview}
+              className='message-review'
+              label="Message / Review"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+            <Button onClick={onAddClick} disabled={loading}> { loading ? "Loading...." : "Gift ETH"} </Button>
+          </DialogActions>
+        </Dialog>
     </div>
   );
 }

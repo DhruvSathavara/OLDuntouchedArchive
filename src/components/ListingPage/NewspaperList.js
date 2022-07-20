@@ -7,30 +7,38 @@ import axios from "axios";
 function BookList() {
 
     const bookContext = React.useContext(BookContext);
-    const { data, fetch } = bookContext;
+    const { data } = bookContext;
     console.log(data, "list");
+    // 
+    useEffect(() => {
+        const dList = JSON.parse(JSON.stringify(data));
+        if (dList) {
+            ListBookData(dList)
+        }
+    }, [data])
+    // 
 
-    const [bookData,setBookData]=useState([]);
+    const [bookData, setBookData] = useState([]);
 
-    var array = [];
-    async function ListBookData(){
-        for (var i = 0; i < data.length; i++){
-          await  axios.get( `https://${data[i].attributes.CID}.ipfs.infura-ipfs.io/data.json`).then((response) =>{
-            array.push(response.data);
-          });
+    async function ListBookData(dList) {
+        var array = [];
+        if (dList) {
+            for (let i = 0; i < dList.length; i++) {
+                const element = dList[i];
+                console.log(element, 'doc element');
+                if (element.CID) {
+                    await axios.get(`https://${element.CID}.ipfs.infura-ipfs.io/data.json`).then((response) => {
+                        console.log(response, 'doc response');
+                        const id = element.objectId;
+                        var newData = { ...response.data, id }
+                        array.push(newData)
+                    })
+                }
+            }
         }
         setBookData(array);
     }
-
-    useEffect(() =>{
-        ListBookData();
-    },[data])
-    // useEffect(() =>{
-    //     fetch();
-    // },[])
-
-
-    console.log(bookData,'newwwwwww');
+    console.log(bookData, 'newwwwwww');
 
     return (
         <>
@@ -65,7 +73,7 @@ function BookList() {
                                 <p className="some-textofbook">{e.description}</p>
                             </div>
                             <div className=" readmore-book">
-                                <Link to='/news-detail'>
+                                <Link to={`/doc-detail/${e.id}`}>
                                     <button className="readmore-btn">Read more</button>
                                 </Link>                        </div>
                         </div>

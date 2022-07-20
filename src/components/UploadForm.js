@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js'
 import { useMoralis } from "react-moralis";
 import { BookContext } from "../Context/BookContext";
+// import Moralis from "moralis/types";
 
 const axios = require('axios'); 
 
-function UploadForm() {
+// const currentUser = Moralis.User.current();
+// console.log(currentUser,"current user");
 
+function UploadForm() {
+const {Moralis,account} = useMoralis();
 
     const [name, setName] = useState('');
     const [subject, setSubject] = useState('');
@@ -16,10 +20,11 @@ function UploadForm() {
     const [description, setDescription] = useState('');
     const [checkbox, setCheckbox] = useState();
     const[data, setData] = useState()
+
     const nameEvent = (e) => {
         setName(e.target.value)
     }
-
+console.log(account,"account");
     const subjectEvent = (e) => {
         setSubject(e.target.value || null)
     }
@@ -47,7 +52,8 @@ function UploadForm() {
         file: file,
         website: website,
         description: description,
-        checkbox: checkbox
+        checkbox: checkbox,
+        walletAddress:account
     }
   console.log(Item,"items");
     
@@ -55,6 +61,7 @@ function UploadForm() {
         e.preventDefault() 
         // addData();
         storeFiles(Item)
+       
         setName('');
         setSubject('');
         setCategory('');
@@ -68,9 +75,9 @@ function UploadForm() {
    
 
 // Web3Storage
-const { Moralis } = useMoralis();
+
 const bookContext = React.useContext(BookContext);
-const {addData, storeFiles} = bookContext;
+const {addData, storeFiles,} = bookContext;
 
 const API_Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEIzOEQzNkJhOTIwOWU0NDhCMzZEOGYwNzQ2MzE4ZGFiNmUyNzUwQmYiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTczNDI2NzMzMDcsIm5hbWUiOiJVbnRvdWNoZWQgYXJjaGlldmUifQ.t3zZU9B7HVdsJTKXajBRuNDsE6piX0tjWQqtSPP23h4";
 const client = new Web3Storage({ token: API_Token})
@@ -107,7 +114,6 @@ const UntoucheDdata  = new untouchedA();
                 </form>
             </div>
         </div>
-
     )
 }
 
